@@ -8,9 +8,11 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 
 import NavBar from "../NavBar";
 
+import "@fontsource/source-sans-pro";
+
 import List from "./List";
 
-const BRAWLHALLA_API_KEY = "YOUR BRAWLHALLA API KEY";
+const BRAWLHALLA_API_KEY = "";
 
 const StyledContainer = styled.div`
 	background: #83a4d4;
@@ -34,23 +36,23 @@ const InnerContainer = styled.div`
 	border-radius: 10px;
 `;
 
-const LegendSearchFieldStyle = styled.input`
-	border: 1px solid grey;
-	border-radius: 5px;
-	height: 40px;
-	width: 50%;
-	padding: 2px 23px 2px 30px;
-	outline: 0;
-	background-color: #f5f5f5;
-	margin: auto;
-	display: block;
-	font-size: 25px;
-`;
+// const LegendSearchFieldStyle = styled.input`
+// 	border: 1px solid grey;
+// 	border-radius: 5px;
+// 	height: 40px;
+// 	width: 50%;
+// 	padding: 2px 23px 2px 30px;
+// 	outline: 0;
+// 	background-color: #f5f5f5;
+// 	margin: auto;
+// 	display: block;
+// 	font-size: 25px;
+// `;
 
 const BrawlSearch = styled.h1`
 	text-align: center;
 	color: #ffd700;
-	font-family: Cursive;
+	font-family: "Source Sans Pro";
 	padding: 2%;
 	font-size: 40px;
 `;
@@ -59,7 +61,7 @@ const SearchInformation = styled.p`
 	text-align: center;
 	color: white;
 	padding: 1%;
-	font-family: Arial;
+	font-family: "Source Sans Pro";
 	font-size: 25px;
 `;
 
@@ -114,12 +116,33 @@ const listAllLegendsReducer = (state, action) => {
 	}
 };
 
-const LegendSearchField = ({ onInputChange }) => (
-	<>
-		<label htmlFor="search"></label>
-		<LegendSearchFieldStyle id="search" type="text" onChange={onInputChange} />
-	</>
-);
+const searchedLegendReducer = (state, action) => {
+	switch (action.type) {
+		case "LEGEND_EXIST":
+			console.log("WOW");
+			return {
+				...state,
+				exist: true,
+				searching: true,
+				data: action.payload,
+			};
+		case "LEGEND_NO_EXIST":
+			return {
+				...state,
+				exist: false,
+				searching: true,
+			};
+		default:
+			throw new Error();
+	}
+};
+
+// const LegendSearchField = ({ onInputChange }) => (
+// 	<>
+// 		<label htmlFor="search"></label>
+// 		<LegendSearchFieldStyle id="search" type="text" onChange={onInputChange} />
+// 	</>
+// );
 
 const Legends = () => {
 	const [listAllLegends, dispatchListAllLegends] = React.useReducer(
@@ -130,6 +153,39 @@ const Legends = () => {
 			isError: false,
 		}
 	);
+
+	const [searchedLegend, dispatchSearchedLegend] = React.useReducer(
+		searchedLegendReducer,
+		{ data: [], exist: false, searching: false }
+	);
+
+	const [searchTerm, setSearchTerm] = React.useState();
+
+	// const [searched, setSearched] = React.useState(false);
+
+	const handleSearchSubmit = (event) => {
+		listAllLegends.data.forEach((legend) => {
+			if (legend.legend_name_key === searchTerm.toLowerCase()) {
+				dispatchSearchedLegend({ type: "LEGEND_EXIST", payload: searchTerm });
+			}
+			console.log("HEY" + searchedLegend.exist);
+		});
+
+		if (searchedLegend.exist === false) {
+			dispatchSearchedLegend({ type: "LEGEND_NO_EXIST" });
+		}
+
+		console.log(searchedLegend.exist);
+
+		event.preventDefault();
+	};
+
+	console.log(searchedLegend.exist);
+
+	// React.useEffect(() => {
+	// 	dispatchSearchedLegend({ type: "TEST" });
+	// 	console.log(searchedLegend.exist);
+	// }, [searchedLegend.exist]); THIS WORKS TO CHANGE
 
 	const getLegends = async () => {
 		dispatchListAllLegends({ type: "LIST_LOADING" });
@@ -152,7 +208,7 @@ const Legends = () => {
 	}, []);
 
 	const handleSearch = (event) => {
-		console.log(event.target.value);
+		setSearchTerm(event.target.value);
 	};
 
 	return (
@@ -165,7 +221,7 @@ const Legends = () => {
 					Enter a legend name and press search to view specific legends
 				</SearchInformation>
 
-				<form>
+				<form onSubmit={handleSearchSubmit}>
 					<TextField
 						style={{
 							width: "95%",
@@ -196,11 +252,14 @@ const Legends = () => {
 							marginLeft: "25%",
 							borderColor: "white",
 							color: "white",
+							fontFamily: "Source Sans Pro",
 						}}
 					>
 						Clear
 					</Button>
 					<Button
+						type="submit"
+						disabled={!searchTerm}
 						variant="contained"
 						style={{
 							padding: "1%",
@@ -209,6 +268,7 @@ const Legends = () => {
 							marginLeft: "10%",
 							backgroundColor: "#5DCED4",
 							color: "black",
+							fontFamily: "Source Sans Pro",
 						}}
 					>
 						Search

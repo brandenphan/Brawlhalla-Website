@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import NavBar from "../NavBar";
+import "@fontsource/source-sans-pro";
 
 // The background image comes from the official Brawlhalla website: https://www.brawlhalla.com/wallpapers/
 const StyledContainer = styled.div`

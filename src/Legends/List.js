@@ -1,6 +1,7 @@
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import styled from "styled-components";
+import "@fontsource/source-sans-pro";
 
 const legendWeaponLinks = require("./LegendPictureLinks");
 
@@ -17,7 +18,6 @@ const LegendContainer = styled.div`
 
 const LegendAttributeCaption = styled.p`
 	font-size: 15px;
-	font-family: Arial;
 `;
 
 const capitalizeName = (legend) => {
@@ -37,13 +37,13 @@ const List = (props) =>
 				style={{
 					marginLeft: "3%",
 					marginTop: "10%",
-					fontFamily: "Arial",
+					fontFamily: "Source Sans Pro",
 					color: "black",
 				}}
 			>
 				{capitalizeName(legend.legend_name_key)}
 			</h2>
-			<div style={{ marginTop: "8.9%", height: "100%" }}>
+			<div style={{ marginTop: "8.7%", height: "100%" }}>
 				<img
 					src={legendWeaponLinks.BrawlhallaLegendPicture(
 						capitalizeName(legend.legend_name_key)
@@ -82,7 +82,9 @@ const List = (props) =>
 					marginTop: "-17%",
 				}}
 			>
-				<LegendAttributeCaption style={{ marginLeft: "20%" }}>
+				<LegendAttributeCaption
+					style={{ marginLeft: "20%", fontFamily: "Source Sans Pro" }}
+				>
 					Strength
 				</LegendAttributeCaption>
 				<CircularProgressbar
@@ -98,7 +100,9 @@ const List = (props) =>
 					marginTop: "3%",
 				}}
 			>
-				<LegendAttributeCaption style={{ marginLeft: "20%" }}>
+				<LegendAttributeCaption
+					style={{ marginLeft: "20%", fontFamily: "Source Sans Pro" }}
+				>
 					Dexterity
 				</LegendAttributeCaption>
 				<CircularProgressbar
@@ -111,10 +115,12 @@ const List = (props) =>
 					width: 100,
 					height: 100,
 					marginLeft: "90%",
-					marginTop: "-19%",
+					marginTop: "-19.3%",
 				}}
 			>
-				<LegendAttributeCaption style={{ marginLeft: "20%" }}>
+				<LegendAttributeCaption
+					style={{ marginLeft: "20%", fontFamily: "Source Sans Pro" }}
+				>
 					Defense
 				</LegendAttributeCaption>
 				<CircularProgressbar
@@ -130,7 +136,9 @@ const List = (props) =>
 					marginTop: "3%",
 				}}
 			>
-				<LegendAttributeCaption style={{ marginLeft: "25%" }}>
+				<LegendAttributeCaption
+					style={{ marginLeft: "25%", fontFamily: "Source Sans Pro" }}
+				>
 					Speed
 				</LegendAttributeCaption>
 				<CircularProgressbar value={legend.speed * 10} text={legend.speed} />
