@@ -1,0 +1,141 @@
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+import styled from "styled-components";
+
+const legendWeaponLinks = require("./LegendPictureLinks");
+
+const LegendContainer = styled.div`
+	width: 70%;
+	height: 30%;
+	margin: auto;
+	display: block;
+	margin-top: 40px;
+	border-radius: 10px;
+	border-style: solid;
+	border-color: #585858;
+`;
+
+const LegendAttributeCaption = styled.p`
+	font-size: 15px;
+	font-family: Arial;
+`;
+
+const capitalizeName = (legend) => {
+	let capitalized = legend.replace(" ", "-");
+	capitalized = capitalized.charAt(0).toUpperCase() + capitalized.slice(1);
+	capitalized = capitalized
+		.split("-")
+		.map((e) => e.charAt(0).toUpperCase() + e.slice(1))
+		.join("-");
+	return capitalized;
+};
+
+const List = (props) =>
+	props.list.data.map((legend) => (
+		<LegendContainer key={legend.legend_id}>
+			<h2
+				style={{
+					marginLeft: "3%",
+					marginTop: "10%",
+					fontFamily: "Arial",
+					color: "black",
+				}}
+			>
+				{capitalizeName(legend.legend_name_key)}
+			</h2>
+			<div style={{ marginTop: "8.9%", height: "100%" }}>
+				<img
+					src={legendWeaponLinks.BrawlhallaLegendPicture(
+						capitalizeName(legend.legend_name_key)
+					)}
+					alt=""
+					height="100%"
+					width="15%"
+					style={{ marginLeft: "15%", marginTop: "-30%" }}
+				/>
+			</div>
+			<div style={{ marginTop: "-37%" }}>
+				<img
+					src={legendWeaponLinks.BrawlhallaWeaponPicture(
+						legend.weapon_one.toLowerCase()
+					)}
+					alt=""
+					height="50%"
+					width="10%"
+					style={{ marginLeft: "38%" }}
+				/>
+				<img
+					src={legendWeaponLinks.BrawlhallaWeaponPicture(
+						legend.weapon_two.toLowerCase()
+					)}
+					alt=""
+					height="50%"
+					width="10%"
+					style={{ marginLeft: "8%" }}
+				/>
+			</div>
+			<div
+				style={{
+					width: 100,
+					height: 100,
+					marginLeft: "74%",
+					marginTop: "-17%",
+				}}
+			>
+				<LegendAttributeCaption style={{ marginLeft: "20%" }}>
+					Strength
+				</LegendAttributeCaption>
+				<CircularProgressbar
+					value={legend.strength * 10}
+					text={legend.strength}
+				/>
+			</div>
+			<div
+				style={{
+					width: 100,
+					height: 100,
+					marginLeft: "74%",
+					marginTop: "3%",
+				}}
+			>
+				<LegendAttributeCaption style={{ marginLeft: "20%" }}>
+					Dexterity
+				</LegendAttributeCaption>
+				<CircularProgressbar
+					value={legend.dexterity * 10}
+					text={legend.dexterity}
+				/>
+			</div>
+			<div
+				style={{
+					width: 100,
+					height: 100,
+					marginLeft: "90%",
+					marginTop: "-19%",
+				}}
+			>
+				<LegendAttributeCaption style={{ marginLeft: "20%" }}>
+					Defense
+				</LegendAttributeCaption>
+				<CircularProgressbar
+					value={legend.defense * 10}
+					text={legend.defense}
+				/>
+			</div>
+			<div
+				style={{
+					width: 100,
+					height: 100,
+					marginLeft: "90%",
+					marginTop: "3%",
+				}}
+			>
+				<LegendAttributeCaption style={{ marginLeft: "25%" }}>
+					Speed
+				</LegendAttributeCaption>
+				<CircularProgressbar value={legend.speed * 10} text={legend.speed} />
+			</div>
+		</LegendContainer>
+	));
+
+export default List;
