@@ -12,6 +12,8 @@ import "@fontsource/source-sans-pro";
 
 import List from "./List";
 
+import SearchedLegendComponent from "./SearchedLegendComponent";
+
 const BRAWLHALLA_API_KEY = "";
 
 const StyledContainer = styled.div`
@@ -35,19 +37,6 @@ const InnerContainer = styled.div`
 	margin-top: 40px;
 	border-radius: 10px;
 `;
-
-// const LegendSearchFieldStyle = styled.input`
-// 	border: 1px solid grey;
-// 	border-radius: 5px;
-// 	height: 40px;
-// 	width: 50%;
-// 	padding: 2px 23px 2px 30px;
-// 	outline: 0;
-// 	background-color: #f5f5f5;
-// 	margin: auto;
-// 	display: block;
-// 	font-size: 25px;
-// `;
 
 const BrawlSearch = styled.h1`
 	text-align: center;
@@ -89,6 +78,32 @@ const ErrorMessageComponent = () => (
 		</p>
 	</div>
 );
+
+const LegendNonExistentComponent = (props) => {
+	return (
+		<div>
+			<ErrorOutlineIcon
+				style={{
+					color: "red",
+					marginLeft: "47%",
+					marginTop: "5%",
+					height: "7%",
+					width: "7%",
+				}}
+			/>
+			<p
+				style={{
+					color: "red",
+					fontFamily: "Arial",
+					fontSize: "25px",
+					marginLeft: "41.5%",
+				}}
+			>
+				"{props.legendName}" legend does not exist
+			</p>
+		</div>
+	);
+};
 
 const listAllLegendsReducer = (state, action) => {
 	switch (action.type) {
@@ -140,18 +155,12 @@ const searchedLegendReducer = (state, action) => {
 				...state,
 				exist: false,
 				searching: false,
+				data: [],
 			};
 		default:
 			throw new Error();
 	}
 };
-
-// const LegendSearchField = ({ onInputChange }) => (
-// 	<>
-// 		<label htmlFor="search"></label>
-// 		<LegendSearchFieldStyle id="search" type="text" onChange={onInputChange} />
-// 	</>
-// );
 
 const Legends = () => {
 	const [listAllLegends, dispatchListAllLegends] = React.useReducer(
@@ -168,9 +177,7 @@ const Legends = () => {
 		{ data: [], exist: false, searching: false }
 	);
 
-	const [searchTerm, setSearchTerm] = React.useState();
-
-	// const [searched, setSearched] = React.useState(false);
+	const [searchTerm, setSearchTerm] = React.useState("");
 
 	const handleSearchSubmit = (event) => {
 		dispatchSearchedLegend({ type: "SEARCHING" });
@@ -183,16 +190,13 @@ const Legends = () => {
 			}
 		});
 
-		console.log(searchedLegend.exist);
-
-		// NOW DEAL WITH THE TERNARY STATEMENTS IN THE HTML
-
 		event.preventDefault();
 	};
 
-	console.log("SEARCHING " + searchedLegend.searching);
-	console.log("EXIST " + searchedLegend.exist);
-	console.log(searchedLegend.data); // Check if searching is true, if so check if exist is true, if so send searchedLegend into list
+	const handleClearButton = () => {
+		dispatchSearchedLegend({ type: "STOP_SEARCHING" });
+		setSearchTerm("");
+	};
 
 	const getLegends = async () => {
 		dispatchListAllLegends({ type: "LIST_LOADING" });
@@ -231,6 +235,7 @@ const Legends = () => {
 
 				<form onSubmit={handleSearchSubmit}>
 					<TextField
+						value={searchTerm}
 						style={{
 							width: "95%",
 							marginLeft: "2.5%",
@@ -252,7 +257,9 @@ const Legends = () => {
 						onChange={handleSearch}
 					></TextField>
 					<Button
+						disabled={!searchTerm}
 						variant="outlined"
+						onClick={handleClearButton}
 						style={{
 							padding: "1%",
 							width: "20%",
@@ -286,25 +293,12 @@ const Legends = () => {
 
 			{listAllLegends.isError && <ErrorMessageComponent />}
 
-			{/* {listAllLegends.isLoading ? (
-				<CircularProgress style={{ marginLeft: "49%", marginTop: "5%" }} />
-			) : (
-				<List list={listAllLegends} />
-			)}
-
 			{searchedLegend.searching ? (
-				listAllLegends.isLoading ? (
-					<CircularProgress style={{ marginLeft: "49%", marginTop: "5%" }} />
+				searchedLegend.exist ? (
+					<SearchedLegendComponent list={searchedLegend} />
 				) : (
-					<List list={listAllLegends} />
+					<LegendNonExistentComponent legendName={searchTerm} />
 				)
-			) : (
-				<p>SEARCHED</p>
-			)} */}
-
-			{searchedLegend.searching ? (
-				// <List list={searchedLegend} />
-				<p>SEARCHING</p>
 			) : listAllLegends.isLoading ? (
 				<CircularProgress style={{ marginLeft: "49%", marginTop: "5%" }} />
 			) : (

@@ -15,9 +15,6 @@ const StyledContainer = styled.div`
 	overflow-y: auto;
 	background-image: url(https://www.brawlhalla.com/c/uploads/2020/12/Arena2_1920x1080.jpg);
 `;
-// https://www.brawlhalla.com/c/uploads/2021/03/BHxKFP_1920x1080.jpg
-// https://www.brawlhalla.com/c/uploads/2020/12/FlyingInTheSky_1920x1080.jpg
-// https://www.brawlhalla.com/c/uploads/2020/12/Arena2_1920x1080.jpg
 
 const InnerContainer = styled.div`
 	background: #585858;
