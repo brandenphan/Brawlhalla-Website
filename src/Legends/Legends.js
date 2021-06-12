@@ -118,19 +118,28 @@ const listAllLegendsReducer = (state, action) => {
 
 const searchedLegendReducer = (state, action) => {
 	switch (action.type) {
+		case "SEARCHING":
+			return {
+				...state,
+				searching: true,
+			};
 		case "LEGEND_EXIST":
 			console.log("WOW");
 			return {
 				...state,
 				exist: true,
-				searching: true,
 				data: action.payload,
 			};
 		case "LEGEND_NO_EXIST":
 			return {
 				...state,
 				exist: false,
-				searching: true,
+			};
+		case "STOP_SEARCHING":
+			return {
+				...state,
+				exist: false,
+				searching: false,
 			};
 		default:
 			throw new Error();
@@ -164,28 +173,26 @@ const Legends = () => {
 	// const [searched, setSearched] = React.useState(false);
 
 	const handleSearchSubmit = (event) => {
+		dispatchSearchedLegend({ type: "SEARCHING" });
+
 		listAllLegends.data.forEach((legend) => {
 			if (legend.legend_name_key === searchTerm.toLowerCase()) {
-				dispatchSearchedLegend({ type: "LEGEND_EXIST", payload: searchTerm });
+				dispatchSearchedLegend({ type: "LEGEND_EXIST", payload: legend });
+
+				console.log("HEY" + searchedLegend.exist);
 			}
-			console.log("HEY" + searchedLegend.exist);
 		});
 
-		if (searchedLegend.exist === false) {
-			dispatchSearchedLegend({ type: "LEGEND_NO_EXIST" });
-		}
-
 		console.log(searchedLegend.exist);
+
+		// NOW DEAL WITH THE TERNARY STATEMENTS IN THE HTML
 
 		event.preventDefault();
 	};
 
-	console.log(searchedLegend.exist);
-
-	// React.useEffect(() => {
-	// 	dispatchSearchedLegend({ type: "TEST" });
-	// 	console.log(searchedLegend.exist);
-	// }, [searchedLegend.exist]); THIS WORKS TO CHANGE
+	console.log("SEARCHING " + searchedLegend.searching);
+	console.log("EXIST " + searchedLegend.exist);
+	console.log(searchedLegend.data); // Check if searching is true, if so check if exist is true, if so send searchedLegend into list
 
 	const getLegends = async () => {
 		dispatchListAllLegends({ type: "LIST_LOADING" });
@@ -209,6 +216,7 @@ const Legends = () => {
 
 	const handleSearch = (event) => {
 		setSearchTerm(event.target.value);
+		dispatchSearchedLegend({ type: "STOP_SEARCHING" });
 	};
 
 	return (
@@ -278,7 +286,26 @@ const Legends = () => {
 
 			{listAllLegends.isError && <ErrorMessageComponent />}
 
-			{listAllLegends.isLoading ? (
+			{/* {listAllLegends.isLoading ? (
+				<CircularProgress style={{ marginLeft: "49%", marginTop: "5%" }} />
+			) : (
+				<List list={listAllLegends} />
+			)}
+
+			{searchedLegend.searching ? (
+				listAllLegends.isLoading ? (
+					<CircularProgress style={{ marginLeft: "49%", marginTop: "5%" }} />
+				) : (
+					<List list={listAllLegends} />
+				)
+			) : (
+				<p>SEARCHED</p>
+			)} */}
+
+			{searchedLegend.searching ? (
+				// <List list={searchedLegend} />
+				<p>SEARCHING</p>
+			) : listAllLegends.isLoading ? (
 				<CircularProgress style={{ marginLeft: "49%", marginTop: "5%" }} />
 			) : (
 				<List list={listAllLegends} />
