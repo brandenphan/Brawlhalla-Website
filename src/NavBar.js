@@ -41,6 +41,9 @@ const NavBar = () => {
 						fontSize: "17px",
 						fontFamily: "Source Sans Pro",
 					}}
+					onClick={() => {
+						history.push("/Leaderboards");
+					}}
 				>
 					Leaderboards
 				</Button>

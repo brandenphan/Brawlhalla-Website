@@ -10,7 +10,7 @@ import ErrorMessageComponent from "./Components/ErrorMessage";
 import LegendNonExistentComponent from "./Components/LegendNonExistent";
 import SearchForm from "./Components/SearchForm";
 
-const BRAWLHALLA_API_KEY = ""; // Brawlhalla API key to access the data from their API
+const BRAWLHALLA_API_KEY = "LKOBF9MFX1CSG7J0XXPD"; // Brawlhalla API key to access the data from their API
 
 // Styled components used for various components in this JS file
 const StyledContainer = styled.div`
