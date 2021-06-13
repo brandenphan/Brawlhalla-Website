@@ -1,9 +1,9 @@
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import styled from "styled-components";
-import "@fontsource/source-sans-pro";
 
-const legendWeaponLinks = require("./LegendPictureLinks");
+const legendWeaponLinks = require("../Functions/LegendPictureLinks");
+const CapitalizeName = require("../Functions/CapitalizeName");
 
 const LegendContainer = styled.div`
 	width: 70%;
@@ -20,16 +20,6 @@ const LegendAttributeCaption = styled.p`
 	font-size: 15px;
 `;
 
-const capitalizeName = (legend) => {
-	let capitalized = legend.replace(" ", "-");
-	capitalized = capitalized.charAt(0).toUpperCase() + capitalized.slice(1);
-	capitalized = capitalized
-		.split("-")
-		.map((e) => e.charAt(0).toUpperCase() + e.slice(1))
-		.join("-");
-	return capitalized;
-};
-
 const SearchedLegendComponent = (props) => (
 	<LegendContainer key={props.list.data.legend_id}>
 		<h2
@@ -40,12 +30,12 @@ const SearchedLegendComponent = (props) => (
 				color: "black",
 			}}
 		>
-			{capitalizeName(props.list.data.legend_name_key)}
+			{CapitalizeName.CapitalizeName(props.list.data.legend_name_key)}
 		</h2>
 		<div style={{ marginTop: "8.7%", height: "100%" }}>
 			<img
 				src={legendWeaponLinks.BrawlhallaLegendPicture(
-					capitalizeName(props.list.data.legend_name_key)
+					CapitalizeName.CapitalizeName(props.list.data.legend_name_key)
 				)}
 				alt=""
 				height="100%"

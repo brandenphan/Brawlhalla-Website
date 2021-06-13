@@ -1,18 +1,14 @@
 import React from "react";
 import axios from "axios";
 import styled from "styled-components";
-import { TextField, Button, CircularProgress } from "@material-ui/core";
-import SearchIcon from "@material-ui/icons/Search";
-import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
-import InputAdornment from "@material-ui/core/InputAdornment";
+import { CircularProgress } from "@material-ui/core";
 
 import NavBar from "../NavBar";
-
-import "@fontsource/source-sans-pro";
-
-import List from "./List";
-
-import SearchedLegendComponent from "./SearchedLegendComponent";
+import List from "./Components/List";
+import SearchedLegendComponent from "./Components/SearchedLegendComponent";
+import ErrorMessageComponent from "./Components/ErrorMessage";
+import LegendNonExistentComponent from "./Components/LegendNonExistent";
+import SearchForm from "./Components/SearchForm";
 
 const BRAWLHALLA_API_KEY = "";
 
@@ -53,57 +49,6 @@ const SearchInformation = styled.p`
 	font-family: "Source Sans Pro";
 	font-size: 25px;
 `;
-
-const ErrorMessageComponent = () => (
-	<div>
-		<ErrorOutlineIcon
-			style={{
-				color: "red",
-				marginLeft: "47%",
-				marginTop: "5%",
-				height: "7%",
-				width: "7%",
-			}}
-		/>
-		<p
-			style={{
-				color: "red",
-				fontFamily: "Arial",
-				fontSize: "25px",
-				marginLeft: "30%",
-			}}
-		>
-			Error loading data from Brawlhalla API, please try using the website again
-			later
-		</p>
-	</div>
-);
-
-const LegendNonExistentComponent = (props) => {
-	return (
-		<div>
-			<ErrorOutlineIcon
-				style={{
-					color: "red",
-					marginLeft: "47%",
-					marginTop: "5%",
-					height: "7%",
-					width: "7%",
-				}}
-			/>
-			<p
-				style={{
-					color: "red",
-					fontFamily: "Arial",
-					fontSize: "25px",
-					marginLeft: "41.5%",
-				}}
-			>
-				"{props.legendName}" legend does not exist
-			</p>
-		</div>
-	);
-};
 
 const listAllLegendsReducer = (state, action) => {
 	switch (action.type) {
@@ -179,6 +124,11 @@ const Legends = () => {
 
 	const [searchTerm, setSearchTerm] = React.useState("");
 
+	const handleSearch = (event) => {
+		setSearchTerm(event.target.value);
+		dispatchSearchedLegend({ type: "STOP_SEARCHING" });
+	};
+
 	const handleSearchSubmit = (event) => {
 		dispatchSearchedLegend({ type: "SEARCHING" });
 
@@ -218,11 +168,6 @@ const Legends = () => {
 		getLegends();
 	}, []);
 
-	const handleSearch = (event) => {
-		setSearchTerm(event.target.value);
-		dispatchSearchedLegend({ type: "STOP_SEARCHING" });
-	};
-
 	return (
 		<StyledContainer>
 			<NavBar />
@@ -232,64 +177,15 @@ const Legends = () => {
 				<SearchInformation>
 					Enter a legend name and press search to view specific legends
 				</SearchInformation>
-
-				<form onSubmit={handleSearchSubmit}>
-					<TextField
-						value={searchTerm}
-						style={{
-							width: "95%",
-							marginLeft: "2.5%",
-							marginTop: "2%",
-						}}
-						InputProps={{
-							disableUnderline: true,
-							style: {
-								fontSize: "25px",
-								borderBottom: "1px solid white",
-								color: "white",
-							},
-							startAdornment: (
-								<InputAdornment position="start">
-									<SearchIcon style={{ color: "white" }} />
-								</InputAdornment>
-							),
-						}}
-						onChange={handleSearch}
-					></TextField>
-					<Button
-						disabled={!searchTerm}
-						variant="outlined"
-						onClick={handleClearButton}
-						style={{
-							padding: "1%",
-							width: "20%",
-							marginTop: "2%",
-							marginLeft: "25%",
-							borderColor: "white",
-							color: "white",
-							fontFamily: "Source Sans Pro",
-						}}
-					>
-						Clear
-					</Button>
-					<Button
-						type="submit"
-						disabled={!searchTerm}
-						variant="contained"
-						style={{
-							padding: "1%",
-							width: "20%",
-							marginTop: "2%",
-							marginLeft: "10%",
-							backgroundColor: "#5DCED4",
-							color: "black",
-							fontFamily: "Source Sans Pro",
-						}}
-					>
-						Search
-					</Button>
-				</form>
+				<SearchForm
+					searchTerm={searchTerm}
+					handleSearch={handleSearch}
+					handleClearButton={handleClearButton}
+					handleSearchSubmit={handleSearchSubmit}
+				/>
 			</InnerContainer>
+
+			{/* Make it so the legend search container also doesn't show upon the error with the API */}
 
 			{listAllLegends.isError && <ErrorMessageComponent />}
 

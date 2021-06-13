@@ -65,5 +65,4 @@ const BrawlhallaWeaponPicture = (weaponName) => {
 	}
 };
 
-// export function BrawlhallaLegendPicture();
 module.exports = { BrawlhallaLegendPicture, BrawlhallaWeaponPicture };
