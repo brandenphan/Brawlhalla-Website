@@ -10,8 +10,9 @@ import ErrorMessageComponent from "./Components/ErrorMessage";
 import LegendNonExistentComponent from "./Components/LegendNonExistent";
 import SearchForm from "./Components/SearchForm";
 
-const BRAWLHALLA_API_KEY = "";
+const BRAWLHALLA_API_KEY = ""; // Brawlhalla API key to access the data from their API
 
+// Styled components used for various components in this JS file
 const StyledContainer = styled.div`
 	background: #83a4d4;
 	background: linear-gradient(to left, #b6fbff, #83a4d4);
@@ -50,6 +51,7 @@ const SearchInformation = styled.p`
 	font-size: 25px;
 `;
 
+// Reducer function to manage the state and data when retrieving data from the Brawlhalla API
 const listAllLegendsReducer = (state, action) => {
 	switch (action.type) {
 		case "LIST_LOADING":
@@ -76,6 +78,7 @@ const listAllLegendsReducer = (state, action) => {
 	}
 };
 
+// Reducer function to manage the state and data when the user searches for a specific legend
 const searchedLegendReducer = (state, action) => {
 	switch (action.type) {
 		case "SEARCHING":
@@ -84,7 +87,6 @@ const searchedLegendReducer = (state, action) => {
 				searching: true,
 			};
 		case "LEGEND_EXIST":
-			console.log("WOW");
 			return {
 				...state,
 				exist: true,
@@ -107,7 +109,9 @@ const searchedLegendReducer = (state, action) => {
 	}
 };
 
+// Component that combines various other components and hooks to render the Legends section
 const Legends = () => {
+	// Reducer hook to store data received from the Brawlhalla API and states while receiving the data
 	const [listAllLegends, dispatchListAllLegends] = React.useReducer(
 		listAllLegendsReducer,
 		{
@@ -117,37 +121,40 @@ const Legends = () => {
 		}
 	);
 
+	// Reducer hook to store data of the searched legend and states
 	const [searchedLegend, dispatchSearchedLegend] = React.useReducer(
 		searchedLegendReducer,
 		{ data: [], exist: false, searching: false }
 	);
 
-	const [searchTerm, setSearchTerm] = React.useState("");
+	const [searchTerm, setSearchTerm] = React.useState(""); // State hook to manage the search field when the user searches for a legend
 
+	// Function that handles when the user inputs something into the search field
 	const handleSearch = (event) => {
 		setSearchTerm(event.target.value);
 		dispatchSearchedLegend({ type: "STOP_SEARCHING" });
 	};
 
+	// Function that handles when the user submits the legend search field
 	const handleSearchSubmit = (event) => {
 		dispatchSearchedLegend({ type: "SEARCHING" });
 
 		listAllLegends.data.forEach((legend) => {
 			if (legend.legend_name_key === searchTerm.toLowerCase()) {
 				dispatchSearchedLegend({ type: "LEGEND_EXIST", payload: legend });
-
-				console.log("HEY" + searchedLegend.exist);
 			}
 		});
 
 		event.preventDefault();
 	};
 
+	// Function that handles when the user clicks the "CLEAR" button
 	const handleClearButton = () => {
 		dispatchSearchedLegend({ type: "STOP_SEARCHING" });
 		setSearchTerm("");
 	};
 
+	// Async function that retrieves data from the Brawlhalla API while updating the listAllLegends state
 	const getLegends = async () => {
 		dispatchListAllLegends({ type: "LIST_LOADING" });
 		try {
@@ -164,41 +171,48 @@ const Legends = () => {
 		}
 	};
 
+	// Side-effect hook that runs once to call the above function and load data from the Brawlhalla API
 	React.useEffect(() => {
 		getLegends();
 	}, []);
 
+	// Combines everything to render the legend section of the webpage
 	return (
 		<StyledContainer>
 			<NavBar />
 
-			<InnerContainer>
-				<BrawlSearch>Legend Search</BrawlSearch>
-				<SearchInformation>
-					Enter a legend name and press search to view specific legends
-				</SearchInformation>
-				<SearchForm
-					searchTerm={searchTerm}
-					handleSearch={handleSearch}
-					handleClearButton={handleClearButton}
-					handleSearchSubmit={handleSearchSubmit}
-				/>
-			</InnerContainer>
-
-			{/* Make it so the legend search container also doesn't show upon the error with the API */}
-
-			{listAllLegends.isError && <ErrorMessageComponent />}
-
-			{searchedLegend.searching ? (
-				searchedLegend.exist ? (
-					<SearchedLegendComponent list={searchedLegend} />
-				) : (
-					<LegendNonExistentComponent legendName={searchTerm} />
-				)
-			) : listAllLegends.isLoading ? (
-				<CircularProgress style={{ marginLeft: "49%", marginTop: "5%" }} />
+			{/* Checks if there was an error loading data from the Brawlhalla API */}
+			{listAllLegends.isError ? (
+				<ErrorMessageComponent />
 			) : (
-				<List list={listAllLegends} />
+				<>
+					<InnerContainer>
+						<BrawlSearch>Legend Search</BrawlSearch>
+						<SearchInformation>
+							Enter a legend name and press search to view specific legends
+						</SearchInformation>
+						<SearchForm
+							searchTerm={searchTerm}
+							handleSearch={handleSearch}
+							handleClearButton={handleClearButton}
+							handleSearchSubmit={handleSearchSubmit}
+						/>
+					</InnerContainer>
+
+					{/* Checks if the user is searching for a legend with the search field and if the legend the user searched for exist */}
+					{searchedLegend.searching ? (
+						searchedLegend.exist ? (
+							<SearchedLegendComponent list={searchedLegend} />
+						) : (
+							<LegendNonExistentComponent legendName={searchTerm} />
+						)
+					) : // Checks if the data is still being retrieved from the Brawlhalla API
+					listAllLegends.isLoading ? (
+						<CircularProgress style={{ marginLeft: "49%", marginTop: "5%" }} />
+					) : (
+						<List list={listAllLegends} />
+					)}
+				</>
 			)}
 		</StyledContainer>
 	);

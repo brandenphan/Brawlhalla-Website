@@ -1,4 +1,5 @@
 // All these links are for the legend pictures from the Brawlhalla official website: https://www.brawlhalla.com/legends/
+// Function to return specific legend pictures depending on the legend inputted
 const BrawlhallaLegendPicture = (legendName) => {
 	if (legendName === "Bodvar") {
 		return `https://www.brawlhalla.com/c/uploads/2018/11/Bodvar-1.png`;
@@ -35,6 +36,7 @@ const BrawlhallaLegendPicture = (legendName) => {
 https://brawlhalla.fandom.com/wiki/Weapons#List_of_Weapons
 https://tiermaker.com/create/michal-s-favorite-weapons-in-brawlhalla-6647
 https://tiermaker.com/create/brawlhalla-weapon-tier-list */
+// Function to return specific weapon pictures depending on the weapon inputted
 const BrawlhallaWeaponPicture = (weaponName) => {
 	if (weaponName === "hammer") {
 		return "https://tiermaker.com/images/chart/chart/michal-s-favorite-weapons-in-brawlhalla-6647/stoppng";

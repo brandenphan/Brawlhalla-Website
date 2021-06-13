@@ -2,6 +2,7 @@ import { TextField, Button } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
 
+// Renders the search form to allow the user to enter a legend and search for it, and also clear the search field and the legend they searched for
 const SearchForm = ({
 	searchTerm,
 	handleSearch,

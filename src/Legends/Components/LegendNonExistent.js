@@ -1,5 +1,6 @@
 import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 
+// Renders an error message upon the user entering a legend that does not exist
 const LegendNonExistentComponent = (props) => (
 	<div>
 		<ErrorOutlineIcon

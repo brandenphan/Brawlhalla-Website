@@ -5,6 +5,7 @@ import styled from "styled-components";
 const legendWeaponLinks = require("../Functions/LegendPictureLinks");
 const CapitalizeName = require("../Functions/CapitalizeName");
 
+// Styled components used in the JS file
 const LegendContainer = styled.div`
 	width: 70%;
 	height: 30%;
@@ -20,6 +21,7 @@ const LegendAttributeCaption = styled.p`
 	font-size: 15px;
 `;
 
+// Renders the list of legends from the Brawlhalla API with styling
 const List = (props) =>
 	props.list.data.map((legend) => (
 		<LegendContainer key={legend.legend_id}>

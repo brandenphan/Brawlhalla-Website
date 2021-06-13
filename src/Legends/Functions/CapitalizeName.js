@@ -1,3 +1,4 @@
+// Function to capitalize the first letter of the name and the first letter after any dashes
 const CapitalizeName = (legend) => {
 	let capitalized = legend.replace(" ", "-");
 	capitalized = capitalized.charAt(0).toUpperCase() + capitalized.slice(1);

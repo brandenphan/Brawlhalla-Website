@@ -3,6 +3,7 @@ import NavBar from "../NavBar";
 import "@fontsource/source-sans-pro";
 
 // The background image comes from the official Brawlhalla website: https://www.brawlhalla.com/wallpapers/
+// Styled components for the various components used on the home screen
 const StyledContainer = styled.div`
 	background: #83a4d4;
 	background: linear-gradient(to left, #b6fbff, #83a4d4);
@@ -43,6 +44,7 @@ const HomePageInformation = styled.p`
 	font-size: 25px;
 `;
 
+// Component for the home screen of the Brawlhalla React website
 const Home = () => (
 	<>
 		<StyledContainer>

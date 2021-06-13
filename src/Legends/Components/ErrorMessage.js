@@ -1,5 +1,6 @@
 import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 
+// Renders the Error message upon having an error retrieving data from the Brawlhalla API
 const ErrorMessageComponent = () => (
 	<div>
 		<ErrorOutlineIcon
