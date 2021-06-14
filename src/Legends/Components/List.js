@@ -2,7 +2,7 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import styled from "styled-components";
 
-const legendWeaponLinks = require("../Functions/LegendPictureLinks");
+const legendLinks = require("../Functions/LegendPictureLinks");
 const CapitalizeName = require("../Functions/CapitalizeName");
 
 // Styled components used in the JS file
@@ -37,7 +37,7 @@ const List = (props) =>
 			</h2>
 			<div style={{ marginTop: "8.7%", height: "100%" }}>
 				<img
-					src={legendWeaponLinks.BrawlhallaLegendPicture(
+					src={legendLinks.BrawlhallaLegendPicture(
 						CapitalizeName.CapitalizeName(legend.legend_name_key)
 					)}
 					alt=""
@@ -48,7 +48,7 @@ const List = (props) =>
 			</div>
 			<div style={{ marginTop: "-37%" }}>
 				<img
-					src={legendWeaponLinks.BrawlhallaWeaponPicture(
+					src={legendLinks.BrawlhallaWeaponPicture(
 						legend.weapon_one.toLowerCase()
 					)}
 					alt=""
@@ -57,7 +57,7 @@ const List = (props) =>
 					style={{ marginLeft: "38%" }}
 				/>
 				<img
-					src={legendWeaponLinks.BrawlhallaWeaponPicture(
+					src={legendLinks.BrawlhallaWeaponPicture(
 						legend.weapon_two.toLowerCase()
 					)}
 					alt=""
