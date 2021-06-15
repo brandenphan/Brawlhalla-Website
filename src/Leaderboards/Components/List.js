@@ -36,7 +36,7 @@ const EachPlayer = (props) => (
 			style={{
 				fontSize: "30px",
 				marginLeft: "22%",
-				marginTop: "-26%",
+				marginTop: "-25%",
 				fontFamily: "Source Sans Pro",
 			}}
 		>
@@ -46,7 +46,7 @@ const EachPlayer = (props) => (
 			style={{
 				fontSize: "25px",
 				marginLeft: "22%",
-				marginTop: "-1%",
+				marginTop: "5%",
 				fontFamily: "Source Sans Pro",
 			}}
 		>
@@ -69,7 +69,7 @@ const EachPlayer = (props) => (
 			style={{
 				borderRadius: "7px",
 				marginLeft: "62%",
-				marginTop: "-35%",
+				marginTop: "-38%",
 			}}
 		/>
 	</Grid>

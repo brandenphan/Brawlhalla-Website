@@ -1,6 +1,6 @@
+import Grid from "@material-ui/core/Grid";
 import styled from "styled-components";
 import NavBar from "../NavBar/NavBar";
-import "@fontsource/source-sans-pro";
 
 // The background image comes from the official Brawlhalla website: https://www.brawlhalla.com/wallpapers/
 // Styled components for the various components used on the home screen
@@ -49,19 +49,25 @@ const Home = () => (
 	<>
 		<StyledContainer>
 			<NavBar />
-			<InnerContainer>
-				<WelcomeInformation>Welcome to BrawlSearch!</WelcomeInformation>
-				<HomePageInformation>
-					This website uses the Brawlhalla API to gather information for the
-					user. Please use the Navigation Bar at the top of the page to use the
-					features.
-				</HomePageInformation>
-				<HomePageInformation style={{ fontSize: "15px" }}>
-					All pictures used come from https://www.brawlhalla.com/,
-					https://brawlhalla.fandom.com/wiki/Weapons#Weapon_chart, and
-					https://tiermaker.com/create/michal-s-favorite-weapons-in-brawlhalla-6647.
-				</HomePageInformation>
-			</InnerContainer>
+			<Grid container spacing={2} style={{ width: "100%" }}>
+				<Grid item xs={12}>
+					<Grid container justify="center" spacing={2}>
+						<InnerContainer>
+							<WelcomeInformation>Welcome to BrawlSearch!</WelcomeInformation>
+							<HomePageInformation>
+								This website uses the Brawlhalla API to gather information for
+								the user. Please use the Navigation Bar at the top of the page
+								to use the features.
+							</HomePageInformation>
+							<HomePageInformation style={{ fontSize: "15px" }}>
+								All pictures used come from https://www.brawlhalla.com/,
+								https://brawlhalla.fandom.com/wiki/Weapons#Weapon_chart, and
+								https://tiermaker.com/create/michal-s-favorite-weapons-in-brawlhalla-6647.
+							</HomePageInformation>
+						</InnerContainer>
+					</Grid>
+				</Grid>
+			</Grid>
 		</StyledContainer>
 	</>
 );

@@ -13,7 +13,7 @@ const IdToName = require("./Functions/LegendIDtoName");
 const key = require("../APIKey");
 const BRAWLHALLA_API_KEY = key.BRAWLKEY;
 
-// Styledc omponent used for the main div of the leaderboards page
+// Styled component used for the main div of the leaderboards page
 const StyledContainer = styled.div`
 	background: #83a4d4;
 	background: linear-gradient(to left, #b6fbff, #83a4d4);
