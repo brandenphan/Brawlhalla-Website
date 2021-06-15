@@ -1,5 +1,6 @@
 import Grid from "@material-ui/core/Grid";
 import styled from "styled-components";
+
 import NavBar from "../NavBar/NavBar";
 
 // The background image comes from the official Brawlhalla website: https://www.brawlhalla.com/wallpapers/

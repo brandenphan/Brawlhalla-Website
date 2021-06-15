@@ -2,14 +2,14 @@ import { TextField, Button } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
 
-// Renders the search form to allow the user to enter a legend and search for it, and also clear the search field and the legend they searched for
+// Renders the search form that will allow the user to enter a Brawlhalla ID to search for
 const SearchForm = ({
 	searchTerm,
 	handleSearch,
 	handleClearButton,
 	handleSearchSubmit,
 }) => (
-	<form onSubmit={handleSearchSubmit} style={{ padding: "1%" }}>
+	<form style={{ padding: "1%" }}>
 		<TextField
 			value={searchTerm}
 			style={{
@@ -52,6 +52,7 @@ const SearchForm = ({
 			type="submit"
 			disabled={!searchTerm}
 			variant="contained"
+			onClick={handleSearchSubmit}
 			style={{
 				padding: "1%",
 				width: "20%",

@@ -114,7 +114,7 @@ const SearchedLegendComponent = (props) => (
 							/>
 						</div>
 					</Grid>
-					<Grid style={{ marginTop: "-12%" }}>
+					<Grid style={{ marginTop: "-14%" }}>
 						<img
 							src={legendLinks.BrawlhallaWeaponPicture(
 								props.list.data.weapon_one.toLowerCase()
@@ -134,13 +134,13 @@ const SearchedLegendComponent = (props) => (
 							style={{ marginLeft: "6%", marginBottom: "10%" }}
 						/>
 					</Grid>
-					<Grid style={{ marginTop: "-3.5%" }}>
+					<Grid style={{ marginTop: "-2%" }}>
 						<img
 							src={legendLinks.BrawlhallaLegendPicture(
 								CapitalizeName.CapitalizeName(props.list.data.legend_name_key)
 							)}
 							alt=""
-							width="17.5%"
+							width="17%"
 							style={{
 								marginLeft: "80%",
 								borderRadius: "7px",

@@ -106,7 +106,7 @@ const EachLegend = (props) => (
 				/>
 			</div>
 		</Grid>
-		<Grid style={{ marginTop: "-12%" }}>
+		<Grid style={{ marginTop: "-14%" }}>
 			<img
 				src={legendLinks.BrawlhallaWeaponPicture(
 					props.legend.weapon_one.toLowerCase()
@@ -126,7 +126,7 @@ const EachLegend = (props) => (
 				style={{ marginLeft: "6%", marginBottom: "10%" }}
 			/>
 		</Grid>
-		<Grid style={{ marginTop: "-3.5%" }}>
+		<Grid style={{ marginTop: "-2%" }}>
 			<img
 				src={legendLinks.BrawlhallaLegendPicture(
 					CapitalizeName.CapitalizeName(props.legend.legend_name_key)
