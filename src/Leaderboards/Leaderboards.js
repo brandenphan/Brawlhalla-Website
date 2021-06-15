@@ -1,32 +1,19 @@
 import React from "react";
 import axios from "axios";
 import styled from "styled-components";
-
-import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
+import { CircularProgress } from "@material-ui/core";
 
 import NavBar from "../NavBar";
+import List from "./Components/List";
+import ErrorMessageComponent from "../Legends/Components/ErrorMessage";
 
-const legendLinks = require("../Legends/Functions/LegendPictureLinks");
 const IdToName = require("./Functions/LegendIDtoName");
 
+// Brawlhalla API key to access the data from their API
 const key = require("../APIKey");
 const BRAWLHALLA_API_KEY = key.BRAWLKEY;
 
-const useStyles = makeStyles((theme) => ({
-	root: {
-		flexGrow: 1,
-	},
-	paper: {
-		height: 140,
-		width: 100,
-	},
-	control: {
-		padding: theme.spacing(2),
-	},
-}));
-
+// Styledc omponent used for the main div of the leaderboards page
 const StyledContainer = styled.div`
 	background: #83a4d4;
 	background: linear-gradient(to left, #b6fbff, #83a4d4);
@@ -39,6 +26,7 @@ const StyledContainer = styled.div`
 	overflow-y: auto;
 `;
 
+// Reducer function to manage the state and data when retrieving data from the Brawlhalla API
 const listPlayerRankingsReducer = (state, action) => {
 	switch (action.type) {
 		case "LIST_LOADING":
@@ -65,18 +53,9 @@ const listPlayerRankingsReducer = (state, action) => {
 	}
 };
 
-const List = (props) =>
-	props.list.data.map((player) => (
-		<div key={player.brawlhalla_id}>
-			<p>{player.name}</p>
-		</div>
-		// START IMPLEMENTING THE GRID FORMATTING HERE
-	));
-
+// Component that combines various components, functions, and hooks to render the Leaderboards section
 const Leaderboards = () => {
-	const [spacing, setSpacing] = React.useState(2);
-	const classes = useStyles();
-
+	// Reducer hook to store data received from the Brawlhalla API and manage states while receiving the data
 	const [listPlayerRankings, dispatchListPlayerRankings] = React.useReducer(
 		listPlayerRankingsReducer,
 		{
@@ -86,6 +65,8 @@ const Leaderboards = () => {
 		}
 	);
 	let bestLegend = [];
+
+	// Async function that retrieves data from the Brawlhalla API while updating the listPlayerRankings state
 	const getLegends = async () => {
 		dispatchListPlayerRankings({ type: "LIST_LOADING" });
 		try {
@@ -105,42 +86,25 @@ const Leaderboards = () => {
 			dispatchListPlayerRankings({ type: "LIST_LOADING_FAILURE" });
 		}
 	};
+
+	// Side-effect hook that only runs on the mounting render to retrieve the data from the Brawlhalla API
 	React.useEffect(() => {
 		getLegends();
 		// eslint-disable-next-line
 	}, []);
 
+	// Combines everything to render the Leaderboards section of the webpage
 	return (
 		<StyledContainer>
 			<NavBar />
 
-			{/* <Grid
-				container
-				className={classes.root}
-				spacing={2}
-				style={{ width: "100%" }}
-			>
-				<Grid item xs={12}>
-					<Grid container justify="center" spacing={spacing}>
-						{[0, 1, 2].map((value) => (
-							<Grid key={value} item>
-								<div
-									style={{
-										borderColor: "#585858",
-										borderStyle: "solid",
-										borderRadius: "10px",
-										width: "100%",
-									}}
-								>
-									<p>HEY</p>
-									<p>HELLO</p>
-								</div>
-							</Grid>
-						))}
-					</Grid>
-				</Grid>
-			</Grid> */}
-			<List list={listPlayerRankings} />
+			{listPlayerRankings.isError ? (
+				<ErrorMessageComponent />
+			) : listPlayerRankings.isLoading ? (
+				<CircularProgress style={{ marginLeft: "48.5%", marginTop: "5%" }} />
+			) : (
+				<List list={listPlayerRankings} />
+			)}
 		</StyledContainer>
 	);
 };

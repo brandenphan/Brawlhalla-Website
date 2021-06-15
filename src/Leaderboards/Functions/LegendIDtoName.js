@@ -1,3 +1,4 @@
+// Takes in the Legend ID and returns their corresponding name
 const LegendIDtoName = (legendID) => {
 	if (legendID === 3) {
 		return "Bodvar";

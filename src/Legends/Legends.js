@@ -113,7 +113,7 @@ const searchedLegendReducer = (state, action) => {
 
 // Component that combines various other components and hooks to render the Legends section
 const Legends = () => {
-	// Reducer hook to store data received from the Brawlhalla API and states while receiving the data
+	// Reducer hook to store data received from the Brawlhalla API and manage states while receiving the data
 	const [listAllLegends, dispatchListAllLegends] = React.useReducer(
 		listAllLegendsReducer,
 		{
