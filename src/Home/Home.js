@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import NavBar from "../NavBar";
+import NavBar from "../NavBar/NavBar";
 import "@fontsource/source-sans-pro";
 
 // The background image comes from the official Brawlhalla website: https://www.brawlhalla.com/wallpapers/

@@ -3,8 +3,10 @@ import styled from "styled-components";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Home from "./Home/Home";
+import Profiles from "./Profiles/Profiles";
 import Leaderboards from "./Leaderboards/Leaderboards";
 import Legends from "./Legends/Legends";
+import Weapons from "./Weapons/Weapons";
 
 const StyledContainer = styled.div`
 	background: #83a4d4;
@@ -24,8 +26,10 @@ const App = () => {
 			<StyledContainer>
 				<Switch>
 					<Route path="/" exact component={Home} />
+					<Route path="/Profiles" component={Profiles} />
 					<Route path="/Leaderboards" component={Leaderboards} />
 					<Route path="/Legends" component={Legends} />
+					<Route path="/Weapons" component={Weapons} />
 				</Switch>
 			</StyledContainer>
 		</Router>

@@ -3,7 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 import { CircularProgress } from "@material-ui/core";
 
-import NavBar from "../NavBar";
+import NavBar from "../NavBar/NavBar";
 import List from "./Components/List";
 import ErrorMessageComponent from "../Legends/Components/ErrorMessage";
 
