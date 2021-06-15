@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { CircularProgress } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
 
 import NavBar from "../NavBar/NavBar";
 import List from "./Components/List";
@@ -37,12 +38,13 @@ const InnerContainer = styled.div`
 	border-radius: 10px;
 `;
 
-const BrawlSearch = styled.h1`
+const LegendSearch = styled.h1`
 	text-align: center;
 	color: #ffd700;
 	font-family: "Source Sans Pro";
 	padding: 2%;
 	font-size: 40px;
+	margin-top: 1%;
 `;
 
 const SearchInformation = styled.p`
@@ -188,18 +190,25 @@ const Legends = () => {
 				<ErrorMessageComponent />
 			) : (
 				<>
-					<InnerContainer>
-						<BrawlSearch>Legend Search</BrawlSearch>
-						<SearchInformation>
-							Enter a legend name and press search to view specific legends
-						</SearchInformation>
-						<SearchForm
-							searchTerm={searchTerm}
-							handleSearch={handleSearch}
-							handleClearButton={handleClearButton}
-							handleSearchSubmit={handleSearchSubmit}
-						/>
-					</InnerContainer>
+					<Grid container spacing={2} style={{ width: "100%" }}>
+						<Grid item xs={12}>
+							<Grid container justify="center" spacing={2}>
+								<InnerContainer>
+									<LegendSearch>Legend Search</LegendSearch>
+									<SearchInformation>
+										Enter a legend name and press search to view specific
+										legends
+									</SearchInformation>
+									<SearchForm
+										searchTerm={searchTerm}
+										handleSearch={handleSearch}
+										handleClearButton={handleClearButton}
+										handleSearchSubmit={handleSearchSubmit}
+									/>
+								</InnerContainer>
+							</Grid>
+						</Grid>
+					</Grid>
 
 					{/* Checks if the user is searching for a legend with the search field and if the legend the user searched for exist */}
 					{searchedLegend.searching ? (

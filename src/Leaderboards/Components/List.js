@@ -68,7 +68,7 @@ const EachPlayer = (props) => (
 			width="25%"
 			style={{
 				borderRadius: "7px",
-				marginLeft: "62%",
+				marginLeft: "65%",
 				marginTop: "-38%",
 			}}
 		/>

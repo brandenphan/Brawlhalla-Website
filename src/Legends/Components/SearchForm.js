@@ -9,7 +9,7 @@ const SearchForm = ({
 	handleClearButton,
 	handleSearchSubmit,
 }) => (
-	<form onSubmit={handleSearchSubmit}>
+	<form onSubmit={handleSearchSubmit} style={{ padding: "1%" }}>
 		<TextField
 			value={searchTerm}
 			style={{

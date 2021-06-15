@@ -1,3 +1,4 @@
+import Grid from "@material-ui/core/Grid";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import styled from "styled-components";
@@ -5,72 +6,38 @@ import styled from "styled-components";
 const legendLinks = require("../Functions/LegendPictureLinks");
 const CapitalizeName = require("../Functions/CapitalizeName");
 
-// Styled components used in the JS file
-const LegendContainer = styled.div`
-	width: 70%;
-	height: 30%;
-	margin: auto;
-	display: block;
-	margin-top: 40px;
-	border-radius: 10px;
-	border-style: solid;
-	border-color: #585858;
-`;
-
+// Styled component used in the JS file
 const LegendAttributeCaption = styled.p`
 	font-size: 15px;
 `;
 
-// Renders the list of legends from the Brawlhalla API with styling
-const List = (props) =>
-	props.list.data.map((legend) => (
-		<LegendContainer key={legend.legend_id}>
-			<h2
-				style={{
-					marginLeft: "3%",
-					marginTop: "10%",
-					fontFamily: "Source Sans Pro",
-					color: "black",
-				}}
-			>
-				{CapitalizeName.CapitalizeName(legend.legend_name_key)}
-			</h2>
-			<div style={{ marginTop: "8.7%", height: "100%" }}>
-				<img
-					src={legendLinks.BrawlhallaLegendPicture(
-						CapitalizeName.CapitalizeName(legend.legend_name_key)
-					)}
-					alt=""
-					height="100%"
-					width="15%"
-					style={{ marginLeft: "15%", marginTop: "-30%" }}
-				/>
-			</div>
-			<div style={{ marginTop: "-37%" }}>
-				<img
-					src={legendLinks.BrawlhallaWeaponPicture(
-						legend.weapon_one.toLowerCase()
-					)}
-					alt=""
-					height="50%"
-					width="10%"
-					style={{ marginLeft: "38%" }}
-				/>
-				<img
-					src={legendLinks.BrawlhallaWeaponPicture(
-						legend.weapon_two.toLowerCase()
-					)}
-					alt=""
-					height="50%"
-					width="10%"
-					style={{ marginLeft: "8%" }}
-				/>
-			</div>
+// Component that renders each legends information with styling
+const EachLegend = (props) => (
+	<Grid
+		item
+		style={{
+			width: "70%",
+			borderColor: "#585858",
+			borderStyle: "solid",
+			borderRadius: "10px",
+		}}
+	>
+		<h2
+			style={{
+				marginLeft: "3%",
+				marginTop: "12%",
+				fontFamily: "Source Sans Pro",
+				color: "black",
+			}}
+		>
+			{CapitalizeName.CapitalizeName(props.legend.legend_name_key)}
+		</h2>
+		<Grid item style={{ marginTop: "6%" }}>
 			<div
 				style={{
 					width: 100,
 					height: 100,
-					marginLeft: "74%",
+					marginLeft: "15%",
 					marginTop: "-17%",
 				}}
 			>
@@ -80,16 +47,16 @@ const List = (props) =>
 					Strength
 				</LegendAttributeCaption>
 				<CircularProgressbar
-					value={legend.strength * 10}
-					text={legend.strength}
+					value={props.legend.strength * 10}
+					text={props.legend.strength}
 				/>
 			</div>
 			<div
 				style={{
 					width: 100,
 					height: 100,
-					marginLeft: "74%",
-					marginTop: "3%",
+					marginLeft: "15%",
+					marginTop: "5%",
 				}}
 			>
 				<LegendAttributeCaption
@@ -98,16 +65,16 @@ const List = (props) =>
 					Dexterity
 				</LegendAttributeCaption>
 				<CircularProgressbar
-					value={legend.dexterity * 10}
-					text={legend.dexterity}
+					value={props.legend.dexterity * 10}
+					text={props.legend.dexterity}
 				/>
 			</div>
 			<div
 				style={{
 					width: 100,
 					height: 100,
-					marginLeft: "90%",
-					marginTop: "-19.3%",
+					marginLeft: "30%",
+					marginTop: "-21.3%",
 				}}
 			>
 				<LegendAttributeCaption
@@ -116,16 +83,16 @@ const List = (props) =>
 					Defense
 				</LegendAttributeCaption>
 				<CircularProgressbar
-					value={legend.defense * 10}
-					text={legend.defense}
+					value={props.legend.defense * 10}
+					text={props.legend.defense}
 				/>
 			</div>
 			<div
 				style={{
 					width: 100,
 					height: 100,
-					marginLeft: "90%",
-					marginTop: "3%",
+					marginLeft: "30%",
+					marginTop: "5%",
 				}}
 			>
 				<LegendAttributeCaption
@@ -133,9 +100,65 @@ const List = (props) =>
 				>
 					Speed
 				</LegendAttributeCaption>
-				<CircularProgressbar value={legend.speed * 10} text={legend.speed} />
+				<CircularProgressbar
+					value={props.legend.speed * 10}
+					text={props.legend.speed}
+				/>
 			</div>
-		</LegendContainer>
-	));
+		</Grid>
+		<Grid style={{ marginTop: "-12%" }}>
+			<img
+				src={legendLinks.BrawlhallaWeaponPicture(
+					props.legend.weapon_one.toLowerCase()
+				)}
+				alt=""
+				height="30%"
+				width="10%"
+				style={{ marginLeft: "46%", marginBottom: "10%" }}
+			/>
+			<img
+				src={legendLinks.BrawlhallaWeaponPicture(
+					props.legend.weapon_two.toLowerCase()
+				)}
+				alt=""
+				height="30%"
+				width="10%"
+				style={{ marginLeft: "6%", marginBottom: "10%" }}
+			/>
+		</Grid>
+		<Grid style={{ marginTop: "-3.5%" }}>
+			<img
+				src={legendLinks.BrawlhallaLegendPicture(
+					CapitalizeName.CapitalizeName(props.legend.legend_name_key)
+				)}
+				alt=""
+				width="17.5%"
+				style={{
+					marginLeft: "80%",
+					borderRadius: "7px",
+					marginTop: "-30%",
+				}}
+			/>
+		</Grid>
+	</Grid>
+);
+
+// Renders the list of legends from their Brawlhalla API
+const List = (props) => (
+	<Grid container spacing={2} style={{ width: "100%" }}>
+		<Grid item xs={12}>
+			<Grid
+				container
+				justify="center"
+				spacing={2}
+				style={{ gridGap: 12, marginTop: "2%" }}
+			>
+				{props.list.data.map((legend) => (
+					<EachLegend key={legend.legend_id} legend={legend} />
+				))}
+			</Grid>
+		</Grid>
+	</Grid>
+);
 
 export default List;
