@@ -16,6 +16,10 @@ Searching for legends information
 
 Searching for legends that use specific weapons
 
+# Restrictions
+
+This website is currently not compatible with browsers on cellular devices, the CSS currently uses a lot of margin shifting that will be compromised when using a very small screen resolution. 
+
 
 # Home Screen
 
