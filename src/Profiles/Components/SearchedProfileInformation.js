@@ -56,7 +56,7 @@ const SearchedProfileInformation = (props) => (
 							value={props.searchedProfile.data.xp_percentage.toFixed(2) * 100}
 							text={`EXP: ${
 								props.searchedProfile.data.xp_percentage.toFixed(2) * 100
-							}`}
+							}%`}
 						/>
 					</div>
 				</Grid>
