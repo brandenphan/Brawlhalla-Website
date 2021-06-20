@@ -18,8 +18,7 @@ Searching for legends that use specific weapons
 
 # Restrictions
 
-This website is currently not compatible with browsers on cellular devices, the CSS currently uses a lot of margin shifting that will be compromised when using a very small screen resolution. 
-
+This website is currently not compatible with other resolutions other than 1920x1080. The website will still function properly but many of the elements will warped as the CSS currently uses a lot of margin shifting that will be compromised when using different screen resolutions. Better responsiveness for compatability of various resolutions will be implemented in the future.
 
 # Home Screen
 
