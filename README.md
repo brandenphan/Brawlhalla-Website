@@ -1,6 +1,6 @@
 # General Information
 
-This website is written in JavaScript using the React framework utilizing Material UI for various front-end components. Requests are made to the Brawlhalla API in order to gather specific information requested by the user using front-end items. This website is currently being hosted on Netlify under the domain name: https://brawlsearch.netlify.app/
+This website is written in JavaScript using the React framework utilizing Material UI for various front-end components. Requests are made to the Brawlhalla API in order to gather specific information requested by the user using front-end items.
 
 # Requirements
 
