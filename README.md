@@ -8,13 +8,13 @@ Node is required to run this website as well as a personal Brawlhalla API key in
 
 # Main Features
 
-Profile search
+- Profile search
 
-Global leaderboard of top 50 players
+- Global leaderboard of top 50 players
 
-Searching for legends information
+- Searching for legends information
 
-Searching for legends that use specific weapons
+- Searching for legends that use specific weapons
 
 # Restrictions
 
