@@ -6,7 +6,7 @@ This website is written in JavaScript using the React framework utilizing Materi
 
 Node is required to run this website as well as a personal Brawlhalla API key in order to access their API endpoints. The user must run "npm install" in the root directory in order to install all modules as the node_modules are not pushed to git. Upon receiving an API key from Brawlhalla, the user can put that key in the APIKey.js file under the BRAWLKEY and run the website locally with "npm start" while the user is in the root directory after all modules are installed. 
 
-# Main Features
+# Features
 
 - Profile search
 
